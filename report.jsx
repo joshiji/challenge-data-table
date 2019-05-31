@@ -24,8 +24,8 @@ const reduce = (row, calc) => {
     calc.displayCount = (calc.displayCount || 0) + 1
   }
 
-  calc.loadRate = (calc.loadCount / calc.impressionCount) * 100
-  calc.displayRate = (calc.displayCount / calc.loadCount) * 100
+  calc.loadRate = calc.impressionCount === 0 ? 0 : (calc.loadCount / calc.impressionCount) * 100
+  calc.displayRate = calc.loadCount === 0 ? 0 : (calc.displayCount / calc.loadCount) * 100
 }
 
 const calculations = [
