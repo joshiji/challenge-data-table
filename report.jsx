@@ -9,8 +9,6 @@ const dimensions = [
   {'value': 'host', 'title': 'Host'}
 ]
 
-const defaultDimensions = ['Date', 'Host']
-
 const reduce = (row, calc) => {
   if (row.type === 'impression') {
     calc.impressionCount = (calc.impressionCount || 0) + 1
@@ -24,8 +22,13 @@ const reduce = (row, calc) => {
     calc.displayCount = (calc.displayCount || 0) + 1
   }
 
-  calc.loadRate = calc.impressionCount === 0 ? 0 : (calc.loadCount / calc.impressionCount) * 100
-  calc.displayRate = calc.loadCount === 0 ? 0 : (calc.displayCount / calc.loadCount) * 100
+  calc.loadRate = calc.impressionCount === 0
+                  ? 0
+                  : (calc.loadCount / calc.impressionCount) * 100
+
+  calc.displayRate = calc.loadCount === 0
+                      ? 0
+                      : (calc.displayCount / calc.loadCount) * 100
 }
 
 const calculations = [
@@ -43,6 +46,8 @@ const calculations = [
     'template': (val, row) => val.toFixed(1) + '%'
   }
 ]
+
+const defaultDimensions = ['Date', 'Host']
 
 module.exports = createReactClass({
   render () {
